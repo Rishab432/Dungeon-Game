@@ -159,6 +159,7 @@ def dungeon1():
     player_x = 305
     player_y = 225
     hearts = 3
+    attack = False
     running = True
     while running:
         
@@ -176,6 +177,57 @@ def dungeon1():
         if hearts == 0:
             main_base()
         player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
+
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            if player_x > 83:
+                player_x -= 3
+                if attack == True:
+                    magic = pygame.draw.rect(screen, WHITE, [player_x-10, player_y-5, 3, 40])
+                    mag_fcount += 1
+                    print("Attacking")
+                    if mag_fcount == 3:
+                        print("No longer attacking")
+                        attack = False
+        if keys[pygame.K_RIGHT]:
+            if player_x < 527:
+                player_x += 3
+                if attack == True:
+                    magic = pygame.draw.rect(screen, WHITE, [player_x+37, player_y-5, 3, 40])
+                    mag_fcount += 1
+                    print("Attacking")
+                    if mag_fcount == 3:
+                        print("No longer attacking")
+                        attack = False
+        if keys[pygame.K_UP]:
+            if player_y > 3:
+                player_y -= 3
+                if attack == True:
+                    magic = pygame.draw.rect(screen, WHITE, [player_x-5, player_y-10, 40, 3])
+                    mag_fcount += 1
+                    print("Attacking")
+                    if mag_fcount == 3:
+                        print("No longer attacking")
+                        attack = False
+        if keys[pygame.K_DOWN]:
+            if player_y < 447:
+                player_y += 3
+                if attack == True:
+                    magic = pygame.draw.rect(screen, WHITE, [player_x-5, player_y+40, 40, 3])
+                    mag_fcount += 1
+                    print("Attacking")
+                    if mag_fcount == 3:
+                        print("No longer attacking")
+                        attack = False
+
+        if player_x < 83:
+            player_x = 83
+        if player_x > 527:
+            player_x = 527
+        if player_y < 3:
+            player_y = 3
+        if player_y > 447:
+            player_y = 447
 
         # enemies = room_list[current_room][4]
         # if enemies == 1:
@@ -244,28 +296,7 @@ def dungeon1():
                     complete1 = True
                     main_base()
 
-        if player_x < 83:
-            player_x = 83
-        if player_x > 527:
-            player_x = 527
-        if player_y < 3:
-            player_y = 3
-        if player_y > 447:
-            player_y = 447
 
-        keys = pygame.key.get_pressed()
-        if keys[pygame.K_LEFT]:
-            if player_x > 83:
-                player_x -= 3
-        if keys[pygame.K_RIGHT]:
-            if player_x < 527:
-                player_x += 3
-        if keys[pygame.K_UP]:
-            if player_y > 3:
-                player_y -= 3
-        if keys[pygame.K_DOWN]:
-            if player_y < 447:
-                player_y += 3
 
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -274,14 +305,24 @@ def dungeon1():
                 if event.key == pygame.K_SPACE:
                     if keys[pygame.K_UP]:
                         magic = pygame.draw.rect(screen, WHITE, [player_x-5, player_y-10, 40, 3])
+                        mag_fcount = 0
+                        attack = True
                     elif keys[pygame.K_DOWN]:
-                        magic = pygame.draw.line(screen, WHITE, [player_x-5, player_y+40, 40, 3], 3)
+                        magic = pygame.draw.rect(screen, WHITE, [player_x-5, player_y+40, 40, 3])
+                        mag_fcount = 0
+                        attack = True
                     elif keys[pygame.K_LEFT]:
-                        magic = pygame.draw.line(screen, WHITE, [player_x-10, player_y-5], [player_x-10, player_y+35], 3)
-                    elif keys[pygame.K_RIGHT]:
-                        magic = pygame.draw.line(screen, WHITE, [player_x+40, player_y-5], [player_x+40, player_y+35], 3)
+                        magic = pygame.draw.rect(screen, WHITE, [player_x-10, player_y-5, 3, 40])
+                        mag_fcount = 0
+                        attack = True
+                    elif keys[pygame.K_RIGHT]: 
+                        magic = pygame.draw.rect(screen, WHITE, [player_x+37, player_y-5, 3, 40])
+                        mag_fcount = 0
+                        attack = True
                     else:
-                        magic = pygame.draw.rect(screen, WHITE, [player_x-10, player_y-10, 50, 50])
+                        magic = pygame.draw.rect(screen, WHITE, [player_x-10, player_y-10, 50, 50], 3)
+                        mag_fcount = 0
+                        attack = True
                         # if enemy1.colliderect(magic):
                         #     print("True")
                         #     enemies == 0
@@ -447,14 +488,24 @@ def dungeon2():
                 if event.key == pygame.K_SPACE:
                     if keys[pygame.K_UP]:
                         magic = pygame.draw.rect(screen, WHITE, [player_x-5, player_y-10, 40, 3])
+                        mag_fcount = 0
+                        attack = True
                     elif keys[pygame.K_DOWN]:
-                        magic = pygame.draw.line(screen, WHITE, [player_x-5, player_y+40, 40, 3], 3)
+                        magic = pygame.draw.rect(screen, WHITE, [player_x-5, player_y+40, 40, 3])
+                        mag_fcount = 0
+                        attack = True
                     elif keys[pygame.K_LEFT]:
-                        magic = pygame.draw.line(screen, WHITE, [player_x-10, player_y-5], [player_x-10, player_y+35], 3)
-                    elif keys[pygame.K_RIGHT]:
-                        magic = pygame.draw.line(screen, WHITE, [player_x+40, player_y-5], [player_x+40, player_y+35], 3)
+                        magic = pygame.draw.rect(screen, WHITE, [player_x-10, player_y-5, 3, 40])
+                        mag_fcount = 0
+                        attack = True
+                    elif keys[pygame.K_RIGHT]: 
+                        magic = pygame.draw.rect(screen, WHITE, [player_x+37, player_y-5, 3, 40])
+                        mag_fcount = 0
+                        attack = True
                     else:
                         magic = pygame.draw.rect(screen, WHITE, [player_x-10, player_y-10, 50, 50], 3)
+                        mag_fcount = 0
+                        attack = True
                         # if enemy1.colliderect(magic):
                         #     print("True")
                         #     enemies == 0
@@ -473,20 +524,34 @@ def dungeon3():
     boss = 1
     room0 = [1, 2, None, None, 0]
     room_list.append(room0)
-    room1 = [None, None, 2, 0, 1]
+    room1 = [None, 3, 0, None, 1]
     room_list.append(room1)
-    room2 = [1, 3, 4, None, 2]
+    room2 = [3, None, None, 0, 2]
     room_list.append(room2)
-    room3 = [5, None, 6, 2, 2]
+    room3 = [None, 4, 2, 1, 2]
     room_list.append(room3)
-    room4 = [2, None, None, None, 3]
+    room4 = [5, None, None, 3, 3]
     room_list.append(room4)
-    room5 = [None, None, 3, None, 3]
+    room5 = [None, 6, 4, None, 3]
     room_list.append(room5)
-    room6 = [3, 7, None, None, 3]
+    room6 = [None, None, 7, 5, 3]
     room_list.append(room6)
-    room7 = [None, None, None, 6, 4]
+    room7 = [6, 8, None, None, 4]
     room_list.append(room7)
+    room8 = [9, None, None, 7, 0]
+    room_list.append(room8)
+    room9 = [None, 10, 8, None, 1]
+    room_list.append(room9)
+    room10 = [11, None, 12, 9, 2]
+    room_list.append(room10)
+    room11 = [None, None, 10, None, 2]
+    room_list.append(room11)
+    room12 = [10, 13, None, None, 3]
+    room_list.append(room12)
+    room13 = [14, None, None, 12, 3]
+    room_list.append(room13)
+    room14 = [None, None, 13, None, 3]
+    room_list.append(room14)
     current_room = 0
     next_room = 0
     enemies_list = [0, 1, 2, 3, 4]
@@ -510,8 +575,8 @@ def dungeon3():
         
         screen.fill(BLACK)  # always the first drawing command
         pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
-        dun2_txt = mega_font.render("2", True, RED)
-        screen.blit(dun2_txt, (dun2_txt.get_rect(center = screen.get_rect().center)[0], dun2_txt.get_rect(center = screen.get_rect().center)[1]))
+        dun3_txt = mega_font.render("3", True, RED)
+        screen.blit(dun3_txt, (dun3_txt.get_rect(center = screen.get_rect().center)[0], dun3_txt.get_rect(center = screen.get_rect().center)[1]))
 
         if hearts >= 1:
             pygame.draw.rect(screen, RED, [88, 5, 10, 10])
@@ -583,11 +648,11 @@ def dungeon3():
                     player_y = 225
                     current_room = next_room
         if boss == 0:
-            if room_list[current_room] == room7:
+            if room_list[current_room] == room11:
                 dungeon_door = pygame.draw.rect(screen, RED, [305, 300, 30, 30])
                 if player.colliderect(dungeon_door):
-                    global complete2
-                    complete2 = True
+                    global complete3
+                    complete3 = True
                     main_base()
 
         if player_x < 83:
@@ -620,14 +685,24 @@ def dungeon3():
                 if event.key == pygame.K_SPACE:
                     if keys[pygame.K_UP]:
                         magic = pygame.draw.rect(screen, WHITE, [player_x-5, player_y-10, 40, 3])
+                        mag_fcount = 0
+                        attack = True
                     elif keys[pygame.K_DOWN]:
-                        magic = pygame.draw.line(screen, WHITE, [player_x-5, player_y+40, 40, 3], 3)
+                        magic = pygame.draw.rect(screen, WHITE, [player_x-5, player_y+40, 40, 3])
+                        mag_fcount = 0
+                        attack = True
                     elif keys[pygame.K_LEFT]:
-                        magic = pygame.draw.line(screen, WHITE, [player_x-10, player_y-5], [player_x-10, player_y+35], 3)
-                    elif keys[pygame.K_RIGHT]:
-                        magic = pygame.draw.line(screen, WHITE, [player_x+40, player_y-5], [player_x+40, player_y+35], 3)
+                        magic = pygame.draw.rect(screen, WHITE, [player_x-10, player_y-5, 3, 40])
+                        mag_fcount = 0
+                        attack = True
+                    elif keys[pygame.K_RIGHT]: 
+                        magic = pygame.draw.rect(screen, WHITE, [player_x+37, player_y-5, 3, 40])
+                        mag_fcount = 0
+                        attack = True
                     else:
                         magic = pygame.draw.rect(screen, WHITE, [player_x-10, player_y-10, 50, 50], 3)
+                        mag_fcount = 0
+                        attack = True
                         # if enemy1.colliderect(magic):
                         #     print("True")
                         #     enemies == 0
@@ -644,22 +719,42 @@ def dungeon4():
     room_list = []
     enemies = 0
     boss = 1
-    room0 = [None, 1, None, None, 0]
+    room0 = [1, None, None, None, 0]
     room_list.append(room0)
-    room1 = [None, None, 2, 0, 1]
+    room1 = [2, 3, 0, 4, 1]
     room_list.append(room1)
-    room2 = [1, 3, 4, None, 2]
+    room2 = [5, 6, 1, 7, 2]
     room_list.append(room2)
-    room3 = [5, None, 6, 2, 2]
+    room3 = [None, None, None, 1, 2]
     room_list.append(room3)
-    room4 = [2, None, None, None, 3]
+    room4 = [None, 1, None, None, 3]
     room_list.append(room4)
-    room5 = [None, None, 3, None, 3]
+    room5 = [None, None, 2, None, 3]
     room_list.append(room5)
-    room6 = [3, 7, None, None, 3]
+    room6 = [None, 8, None, 2, 3]
     room_list.append(room6)
-    room7 = [None, None, None, 6, 4]
+    room7 = [None, 2, None, 13, 4]
     room_list.append(room7)
+    room8 = [9, None, None, 6, 0]
+    room_list.append(room8)
+    room9 = [10, 11, 8, 12, 1]
+    room_list.append(room9)
+    room10 = [None, None, 9, None, 2]
+    room_list.append(room10)
+    room11 = [None, None, None, 9, 2]
+    room_list.append(room11)
+    room12 = [None, 9, None, None, 3]
+    room_list.append(room12)
+    room13 = [14, 7, None, None, 3]
+    room_list.append(room13)
+    room14 = [15, 16, 13, 17, 3]
+    room_list.append(room14)
+    room15 = [None, None, 14, None, 4]
+    room_list.append(room15)
+    room16 = [None, None, None, 14, 4]
+    room_list.append(room16)
+    room17 = [None, 14, None, None, 4]
+    room_list.append(room17)
     current_room = 0
     next_room = 0
     enemies_list = [0, 1, 2, 3, 4]
@@ -683,8 +778,8 @@ def dungeon4():
         
         screen.fill(BLACK)  # always the first drawing command
         pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
-        dun2_txt = mega_font.render("2", True, RED)
-        screen.blit(dun2_txt, (dun2_txt.get_rect(center = screen.get_rect().center)[0], dun2_txt.get_rect(center = screen.get_rect().center)[1]))
+        dun4_txt = mega_font.render("4", True, RED)
+        screen.blit(dun4_txt, (dun4_txt.get_rect(center = screen.get_rect().center)[0], dun4_txt.get_rect(center = screen.get_rect().center)[1]))
 
         if hearts >= 1:
             pygame.draw.rect(screen, RED, [88, 5, 10, 10])
@@ -756,11 +851,11 @@ def dungeon4():
                     player_y = 225
                     current_room = next_room
         if boss == 0:
-            if room_list[current_room] == room7:
+            if room_list[current_room] == room15 or room_list[current_room] == room10:
                 dungeon_door = pygame.draw.rect(screen, RED, [305, 300, 30, 30])
                 if player.colliderect(dungeon_door):
-                    global complete2
-                    complete2 = True
+                    global complete4
+                    complete4 = True
                     main_base()
 
         if player_x < 83:
@@ -793,14 +888,24 @@ def dungeon4():
                 if event.key == pygame.K_SPACE:
                     if keys[pygame.K_UP]:
                         magic = pygame.draw.rect(screen, WHITE, [player_x-5, player_y-10, 40, 3])
+                        mag_fcount = 0
+                        attack = True
                     elif keys[pygame.K_DOWN]:
-                        magic = pygame.draw.line(screen, WHITE, [player_x-5, player_y+40, 40, 3], 3)
+                        magic = pygame.draw.rect(screen, WHITE, [player_x-5, player_y+40, 40, 3])
+                        mag_fcount = 0
+                        attack = True
                     elif keys[pygame.K_LEFT]:
-                        magic = pygame.draw.line(screen, WHITE, [player_x-10, player_y-5], [player_x-10, player_y+35], 3)
-                    elif keys[pygame.K_RIGHT]:
-                        magic = pygame.draw.line(screen, WHITE, [player_x+40, player_y-5], [player_x+40, player_y+35], 3)
+                        magic = pygame.draw.rect(screen, WHITE, [player_x-10, player_y-5, 3, 40])
+                        mag_fcount = 0
+                        attack = True
+                    elif keys[pygame.K_RIGHT]: 
+                        magic = pygame.draw.rect(screen, WHITE, [player_x+37, player_y-5, 3, 40])
+                        mag_fcount = 0
+                        attack = True
                     else:
                         magic = pygame.draw.rect(screen, WHITE, [player_x-10, player_y-10, 50, 50], 3)
+                        mag_fcount = 0
+                        attack = True
                         # if enemy1.colliderect(magic):
                         #     print("True")
                         #     enemies == 0
