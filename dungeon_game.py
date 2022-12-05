@@ -13,71 +13,10 @@ SIZE = (WIDTH, HEIGHT)
 screen = pygame.display.set_mode(SIZE)
 clock = pygame.time.Clock()
 
-room_list1 = []
-room1_0 = [None, None, None, 1, 0]
-room1_1 = [None, 0, 2, None, 1]
-room1_2 = [1, 3, None, None, 2]
-room1_3 = [None, 4, None, 2, 2]
-room1_4 = [5, None, None, 3, 3]
-room1_5 = [6, None, 4, None, 3]
-room1_6 = [None, None, 5, 7, 3]
-room1_7 = [None, 6, None, 8, 4]
-room1_8 = [None, 7, None, None, 100]
-room_list1.append([room1_0, room1_1, room1_2, room1_3, room1_4, room1_5, room1_6, room1_7, room1_8])
-
-room_list2 = []
-room2_0 = [None, 1, None, None, 0]
-room2_1 = [None, None, 2, 0, 1]
-room2_2 = [1, 3, 4, None, 2]
-room2_3 = [5, None, 6, 2, 2]
-room2_4 = [2, None, None, None, 3]
-room2_5 = [None, None, 3, None, 3]
-room2_6 = [3, 7, None, None, 3]
-room2_7 = [None, None, None, 6, 4]
-room_list2.append([room2_0, room2_1, room2_2, room2_3, room2_4, room2_5, room2_6, room2_7])
-    
-room_list3 = []
-room3_0 = [1, 2, None, None, 0]
-room3_1 = [None, 3, 0, None, 1]
-room3_2 = [3, None, None, 0, 2]
-room3_3 = [None, 4, 2, 1, 2]
-room3_4 = [5, None, None, 3, 3]
-room3_5 = [None, 6, 4, None, 3]
-room3_6 = [None, None, 7, 5, 3]
-room3_7 = [6, 8, None, None, 4]
-room3_8 = [9, None, None, 7, 0]
-room3_9 = [None, 10, 8, None, 1]
-room3_10 = [11, None, 12, 9, 2]
-room3_11 = [None, None, 10, None, 2]
-room3_12 = [10, 13, None, None, 3]
-room3_13 = [14, None, None, 12, 3]
-room3_14 = [None, None, 13, None, 3]
-
-
-room_list4 = []
-room4_0 = [1, None, None, None, 0]
-room4_1 = [2, 3, 0, 4, 1]
-room4_2 = [5, 6, 1, 7, 2]
-room4_3 = [None, None, None, 1, 2]
-room4_4 = [None, 1, None, None, 3]
-room4_5 = [None, None, 2, None, 3]
-room4_6 = [None, 8, None, 2, 3]
-room4_7 = [None, 2, None, 13, 4]
-room4_8 = [9, None, None, 6, 0]
-room4_9 = [10, 11, 8, 12, 1]
-room4_10 = [None, None, 9, None, 2]
-room4_11 = [None, None, None, 9, 2]
-room4_12 = [None, 9, None, None, 3]
-room4_13 = [14, 7, None, None, 3]
-room4_14 = [15, 16, 13, 17, 3]
-room4_15 = [None, None, 14, None, 4]
-room4_16 = [None, None, None, 14, 4]
-room4_17 = [None, 14, None, None, 4]
-room_list4.append([room4_0, room4_1, room4_2, room4_3, room4_4, room4_5, room4_6, room4_7, room4_8, room4_8, room4_9, room4_10, room4_11, room4_12, room4_13, room4_14, room4_15, room4_16, room4_17])
-
 # ---------------------------
 # Initialize global variables
-mega_font = pygame.font.SysFont("papyrus", 150)
+mega_font = pygame.font.Font("C:\\Users\\rish006\Desktop\\ICS_Classwork\\Grand9K Pixel.ttf", 75)
+reg_font = pygame.font.Font("C:\\Users\\rish006\Desktop\\ICS_Classwork\\Grand9K Pixel.ttf", 50)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BLUE = (0,162,232)
@@ -88,16 +27,106 @@ ORANGE = (255,127,39)
 YELLOW = (255,242,0)
 GREY = (127,127,127)
 PURPLE = (163,73,164)
-
-global complete1
+#Start Settings
+initial_set = 305, 225, 3
 complete1 = False
-global complete2
 complete2 = False
-global complete3
 complete3 = False
-global complete4
 complete4 = False
+# Room Sets
+# Room List 1
+room_list1 = []
+room1_0 = [None, None, None, 1]
+room1_1 = [None, 0, 2, None]
+room1_2 = [1, 3, None, None]
+room1_3 = [None, 4, None, 2]
+room1_4 = [5, None, None, 3]
+room1_5 = [6, None, 4, None]
+room1_6 = [None, None, 5, 7]
+room1_7 = [None, 6, None, 8]
+room1_8 = [None, 7, None, None]
+room_list1.append([room1_0, room1_1, room1_2, room1_3, room1_4, room1_5, room1_6, room1_7, room1_8])
+room_list1 = room_list1[0]
+#Room List 2
+room_list2 = []
+room2_0 = [None, 1, None, None]
+room2_1 = [None, None, 2, 0]
+room2_2 = [1, 3, 4, None]
+room2_3 = [5, None, 6, 2]
+room2_4 = [2, None, None, None]
+room2_5 = [None, None, 3, None]
+room2_6 = [3, 7, None, None]
+room2_7 = [None, None, None, 6]
+room_list2.append([room2_0, room2_1, room2_2, room2_3, room2_4, room2_5, room2_6, room2_7])
+room_list2 = room_list2[0]
+# Room List 3
+room_list3 = []
+room3_0 = [1, 2, None, None]
+room3_1 = [None, 3, 0, None]
+room3_2 = [3, None, None, 0]
+room3_3 = [None, 4, 2, 1]
+room3_4 = [5, None, None, 3]
+room3_5 = [None, 6, 4, None]
+room3_6 = [None, None, 7, 5]
+room3_7 = [6, 8, None, None]
+room3_8 = [9, None, None, 7]
+room3_9 = [None, 10, 8, None]
+room3_10 = [11, None, 12, 9]
+room3_11 = [None, None, 10, None]
+room3_12 = [10, 13, None, None]
+room3_13 = [14, None, None, 12]
+room3_14 = [None, None, 13, None]
+room_list3.append([room3_0, room3_1, room3_2, room3_3, room3_4, room3_5, room3_6, room3_7, room3_8, room3_9, room3_10, room3_11, room3_12, room3_13, room3_14])
+room_list3 = room_list3[0]
+# Room List 4
+room_list4 = []
+room4_0 = [1, None, None, None]
+room4_1 = [2, 3, 0, 4]
+room4_2 = [5, 6, 1, 7]
+room4_3 = [None, None, None, 1]
+room4_4 = [None, 1, None, None]
+room4_5 = [None, None, 2, None]
+room4_6 = [None, 8, None, 2]
+room4_7 = [None, 2, None, 13]
+room4_8 = [9, None, None, 6]
+room4_9 = [10, 11, 8, 12]
+room4_10 = [None, None, 9, None]
+room4_11 = [None, None, None, 9]
+room4_12 = [None, 9, None, None]
+room4_13 = [14, 7, None, None]
+room4_14 = [15, 16, 13, 17]
+room4_15 = [None, None, 14, None]
+room4_16 = [None, None, None, 14]
+room4_17 = [None, 14, None, None]
+room_list4.append([room4_0, room4_1, room4_2, room4_3, room4_4, room4_5, room4_6, room4_7, room4_8, room4_9, room4_10, room4_11, room4_12, room4_13, room4_14, room4_15, room4_16, room4_17])
+room_list4 = room_list4[0]
+
+room_list5 = []
+room5_0 = [None, 1, None, 19]
+room5_1 = [None, 2, None, 0]
+room5_2 = [None, 3, None, 1]
+room5_3 = [4, None, None, 2]
+room5_4 = [5, None, 3, 6]
+room5_5 = [None, None, 4, None]
+room5_6 = [None, 5, None, 7]
+room5_7 = [8, 6, None, None]
+room5_8 = [None, None, 7, 9]
+room5_9 = [10, 8, 11, 12]
+room5_10 = [None, None, 9, None]
+room5_11 = [9, None, None, None]
+room5_12 = [None, 9, 13, None]
+room5_13 = [12, None, None, 14]
+room5_14 = [None, 13, None, 15]
+room5_15 = [16, 14, 17, None]
+room5_16 = [None, None, 15, None]
+room5_17 = [15, 18, None, None]
+room5_18 = [None, 19, None, 17]
+room5_19 = [None, 0, None, 18]
+room_list5.append([room5_0, room5_1, room5_2, room5_3, room5_4, room5_5, room5_6, room5_7, room5_8, room5_9, room5_10, room5_11, room5_12, room5_13, room5_14, room5_15, room5_16, room5_17, room5_18, room5_19])
+room_list5 = room_list5[0]
+
 # ---------------------------
+
 def room_generate(room_list, current_room):
     global player_x, player_y, player, complete1
     if room_list[current_room][0] != None:
@@ -138,18 +167,18 @@ def room_generate(room_list, current_room):
 def movement():
     global player_x, player_y
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_LEFT]:
-        if player_x > 83:
-            player_x -= 3
-    if keys[pygame.K_RIGHT]:
-        if player_x < 527:
-            player_x += 3
-    if keys[pygame.K_UP]:
+    if keys[pygame.K_w]:
         if player_y > 3:
             player_y -= 3
-    if keys[pygame.K_DOWN]:
+    if keys[pygame.K_a]:
+        if player_x > 83:
+            player_x -= 3
+    if keys[pygame.K_s]:
         if player_y < 447:
             player_y += 3
+    if keys[pygame.K_d]:
+        if player_x < 527:
+            player_x += 3
 
     if player_x < 83:
         player_x = 83
@@ -160,27 +189,33 @@ def movement():
     if player_y > 447:
         player_y = 447
 
-def event_getter(run_value):
+def event_getter(run_value, pause):
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 run_value = False
-            if event.key == pygame.K_SPACE:
-                print("space hit")
+            if event.key == pygame.K_SPACE or event.key == pygame.K_i:
+                print("attack")
+            if event.key == pygame.K_o:
+                if pause:
+                    pause = False
+                elif not pause:
+                    pause = True
+                else:
+                    print("error occured")
         elif event.type == pygame.QUIT:
             run_value = False
-    return run_value
+    return run_value, pause
 
 def heart_value(hearts):
     if hearts >= 1:
-        pygame.draw.rect(screen, RED, [88, 5, 10, 10])
+        pygame.draw.rect(screen, RED, [5, 5, 10, 10])
     if hearts >= 2:
-        pygame.draw.rect(screen, RED, [103, 5, 10, 10])
+        pygame.draw.rect(screen, RED, [25, 5, 10, 10])
     if hearts == 3:
-        pygame.draw.rect(screen, RED, [118, 5, 10, 10])
+        pygame.draw.rect(screen, RED, [45, 5, 10, 10])
     if hearts == 0:
         main_base()
-    return hearts
 
 # def enemy():
 #     if enemies == 1:
@@ -207,102 +242,188 @@ def heart_value(hearts):
 #                 damage = False
 #         else: 
 #             damage = True
+def player_settings():
+    screen.fill(BLACK)  # always the first drawing command
+    pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
+    set_text = mega_font.render("Settings", False, RED)
+    screen.blit(set_text, (set_text.get_rect(center = screen.get_rect().center)))
+    atk_text = reg_font.render("Atk", False, RED)
+    screen.blit(atk_text, (150, 100))
+    def_text = reg_font.render("Def", False, RED)
+    screen.blit(def_text, (350, 100))
 
 def main_base():
     global player_x, player_y, player
     global complete1, complete2, complete3, complete4
-    player_x = 305
-    player_y = 225
-    hearts = 3
+    player_x, player_y, hearts = initial_set
+    player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
     running = True
+    pause = False
     while running:
+        if pause:
+            player_settings()
+        else:
+            screen.fill(BLACK)  # always the first drawing command
+            pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
+            home = mega_font.render("HOME", False, RED)
+            screen.blit(home, (home.get_rect(center = screen.get_rect().center)))
+            heart_value(hearts)
+
+            door1 = pygame.draw.rect(screen, RED, [220, 3, 200, 10])
+            if player.colliderect(door1):
+                dungeon1()
+            if complete1:
+                door2 = pygame.draw.rect(screen, RED, [547, 140, 10, 200])
+                if player.colliderect(door2):
+                    dungeon2()
+            if complete2:
+                door3 = pygame.draw.rect(screen, RED, [220, 467, 200, 10])
+                if player.colliderect(door3):
+                    dungeon3()
+            if complete3:
+                door4 = pygame.draw.rect(screen, RED, [83, 140, 10, 200])
+                if player.colliderect(door4):
+                    dungeon4()
+            if complete4:
+                door5 = pygame.draw.rect(screen, RED, [305, 300, 30, 30], 5)
+                if player.colliderect(door5):
+                    dungeon5()
+
+            player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
+            movement()
         
-        screen.fill(BLACK)  # always the first drawing command
-        pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
-        home = mega_font.render("HOME", True, RED)
-        screen.blit(home, (home.get_rect(center = screen.get_rect().center)[0], home.get_rect(center = screen.get_rect().center)[1]))
-
-
-        if hearts >= 1:
-            pygame.draw.rect(screen, RED, [88, 5, 10, 10])
-        if hearts >= 2:
-            pygame.draw.rect(screen, RED, [103, 5, 10, 10])
-        if hearts == 3:
-            pygame.draw.rect(screen, RED, [118, 5, 10, 10])
-        player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
-
-        door1 = pygame.draw.rect(screen, RED, [220, 3, 200, 10])
-        if player.colliderect(door1):
-            dungeon1()
-        if complete1:
-            door2 = pygame.draw.rect(screen, RED, [547, 140, 10, 200])
-            if player.colliderect(door2):
-                dungeon2()
-        if complete2:
-            door3 = pygame.draw.rect(screen, RED, [220, 467, 200, 10])
-            if player.colliderect(door3):
-                dungeon3()
-        if complete3:
-            door4 = pygame.draw.rect(screen, RED, [83, 140, 10, 200])
-            if player.colliderect(door4):
-                dungeon4()
-        if complete4:
-            door5 = pygame.draw.rect(screen, RED, [305, 300, 30, 30], 5)
-            if player.colliderect(door5):
-                dungeon5()
-
-        movement()
-        running = event_getter(running)
-
+        running, pause = event_getter(running, pause)
         pygame.display.flip()
         clock.tick(30)
     pygame.quit()
 
 def dungeon1():
+    global player_x, player_y, player
     current_room = 0
-    hearts = 3
-    
+    player_x, player_y, hearts = initial_set
+    pause = False
     running = True
     while running:
-        
-        screen.fill(BLACK)  # always the first drawing command
-        pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
-        dun1_txt = mega_font.render("1", True, RED)
-        screen.blit(dun1_txt, (dun1_txt.get_rect(center = screen.get_rect().center)[0], dun1_txt.get_rect(center = screen.get_rect().center)[1]))
-        hearts = heart_value(hearts)
+        if pause:
+            player_settings()
+        else:
+            screen.fill(BLACK)  # always the first drawing command
+            pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
+            dun1_txt = mega_font.render("1", False, RED)
+            screen.blit(dun1_txt, (dun1_txt.get_rect(center = screen.get_rect().center)))
+            heart_value(hearts)
 
-        player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
-
-        movement()
-
-        current_room = room_generate(room_list1, current_room)
-        running = event_getter(running)
+            movement()
+            current_room = room_generate(room_list1, current_room)
+            player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
+        running, pause = event_getter(running, pause)
         pygame.display.flip()
         clock.tick(30)
     pygame.quit()
 
 
 def dungeon2():
-    global complete2
-    print("dungeon 2")
-    main_base()
+    global player_x, player_y, player
+    current_room = 0
+    player_x, player_y, hearts = initial_set
+    pause = False
+    running = True
+    while running:
+        if pause:
+            player_settings()
+        else:
+            screen.fill(BLACK)  # always the first drawing command
+            pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
+            dun1_txt = mega_font.render("1", False, RED)
+            screen.blit(dun1_txt, (dun1_txt.get_rect(center = screen.get_rect().center)))
+            heart_value(hearts)
+
+
+            movement()
+            current_room = room_generate(room_list2, current_room)
+            player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
+        running = event_getter(running, pause)
+        pygame.display.flip()
+        clock.tick(30)
+    pygame.quit()
     
 
 def dungeon3():
-    global complete3
-    print("dungeon 3")
-    main_base()
+    global player_x, player_y, player
+    current_room = 0
+    player_x, player_y, hearts = initial_set
+    pause = False
+    running = True
+    while running:
+        if pause:
+            player_settings()
+        else:
+            screen.fill(BLACK)  # always the first drawing command
+            pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
+            dun1_txt = mega_font.render("1", False, RED)
+            screen.blit(dun1_txt, (dun1_txt.get_rect(center = screen.get_rect().center)))
+            heart_value(hearts)
+
+
+            movement()
+            player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
+            current_room = room_generate(room_list3, current_room)
+        running = event_getter(running, player)
+        pygame.display.flip()
+        clock.tick(30)
+    pygame.quit()
 
 
 def dungeon4():
-    global complete4
-    print("dungeon 4")
-    main_base()
+    global player_x, player_y, player
+    current_room = 0
+    player_x, player_y, hearts = initial_set
+    pause = False
+    running = True
+    while running:
+        if pause:
+            player
+        else:
+            screen.fill(BLACK)  # always the first drawing command
+            pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
+            dun1_txt = mega_font.render("1", False, RED)
+            screen.blit(dun1_txt, (dun1_txt.get_rect(center = screen.get_rect().center)))
+            heart_value(hearts)
+
+
+            movement()
+            player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
+            current_room = room_generate(room_list4, current_room)
+        running = event_getter(running, pause)
+        pygame.display.flip()
+        clock.tick(30)
+    pygame.quit()
 
 
 def dungeon5():
-    print("dungeon5")
-    main_base()
+    global player_x, player_y, player
+    current_room = 0
+    player_x, player_y, hearts = initial_set
+    pause = False
+    running = True
+    while running:
+        if pause:
+            player_settings()
+        else:
+            screen.fill(BLACK)  # always the first drawing command
+            pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
+            dun1_txt = mega_font.render("1", False, RED)
+            screen.blit(dun1_txt, (dun1_txt.get_rect(center = screen.get_rect().center)))
+            heart_value(hearts)
+
+
+            movement()
+            player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
+            current_room = room_generate(room_list5, current_room)
+        running = event_getter(running, pause)
+        pygame.display.flip()
+        clock.tick(30)
+    pygame.quit()
 
 
 if __name__ == "__main__":
