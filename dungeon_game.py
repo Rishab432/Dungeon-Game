@@ -248,9 +248,20 @@ def player_settings():
     set_text = mega_font.render("Settings", False, RED)
     screen.blit(set_text, (set_text.get_rect(center = screen.get_rect().center)))
     atk_text = reg_font.render("Atk", False, RED)
-    screen.blit(atk_text, (150, 100))
+    atktext_rect = atk_text.get_rect()
+    atktext_rect.left = 150
+    screen.blit(atk_text, atktext_rect)
     def_text = reg_font.render("Def", False, RED)
-    screen.blit(def_text, (350, 100))
+    deftext_rect = def_text.get_rect()
+    deftext_rect.right = 520
+    screen.blit(def_text, deftext_rect)
+    arrow = reg_font.render(">", False, RED)
+    arrow_rect = arrow.get_rect()
+    # if left:
+    arrow_rect.left = 120
+    # else:
+    # arrow.left = 490
+    screen.blit(arrow, arrow_rect)
 
 def main_base():
     global player_x, player_y, player
