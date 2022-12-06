@@ -1,22 +1,22 @@
 # pygame template
 
 import pygame
+from pygame import mixer
 import random
 
 pygame.init()
 pygame.font.init()
-
-WIDTH = 640
-HEIGHT = 480
-SIZE = (WIDTH, HEIGHT)
-
-screen = pygame.display.set_mode(SIZE)
+mixer.init()
+screen = pygame.display.set_mode((640, 480))
 clock = pygame.time.Clock()
 
 # ---------------------------
 # Initialize global variables
-mega_font = pygame.font.Font("C:\\Users\\rish006\Desktop\\ICS_Classwork\\Grand9K Pixel.ttf", 75)
-reg_font = pygame.font.Font("C:\\Users\\rish006\Desktop\\ICS_Classwork\\Grand9K Pixel.ttf", 50)
+# mixer.music.load("8 Bit Dungeon.mp3")
+# mixer.music.set_volume(0.7)
+# mixer.music.play(-1)
+mega_font = pygame.font.Font("Grand9K Pixel.ttf", 75)
+reg_font = pygame.font.Font("Grand9K Pixel.ttf", 50)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BLUE = (0,162,232)
@@ -170,12 +170,12 @@ def movement():
     if keys[pygame.K_w]:
         if player_y > 3:
             player_y -= 3
-    if keys[pygame.K_a]:
-        if player_x > 83:
-            player_x -= 3
     if keys[pygame.K_s]:
         if player_y < 447:
             player_y += 3
+    if keys[pygame.K_a]:
+        if player_x > 83:
+            player_x -= 3
     if keys[pygame.K_d]:
         if player_x < 527:
             player_x += 3
@@ -189,23 +189,38 @@ def movement():
     if player_y > 447:
         player_y = 447
 
-def event_getter(run_value, pause):
+def event_getter(run_value, pause_value, select_value):
+    global left, right
+    select_value = False
     for event in pygame.event.get():
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_ESCAPE:
                 run_value = False
             if event.key == pygame.K_SPACE or event.key == pygame.K_i:
                 print("attack")
+                if pause_value == True:
+                    select_value = True
+                else:
+                    select_value = False
             if event.key == pygame.K_o:
-                if pause:
-                    pause = False
-                elif not pause:
-                    pause = True
+                if pause_value == True:
+                    pause_value = False
+                elif not pause_value:
+                    pause_value = True
                 else:
                     print("error occured")
+            if pause_value == True:
+                if event.key == pygame.K_a:
+                    if right == True:
+                        left = True
+                        right = False
+                if event.key == pygame.K_d:
+                    if left == True:
+                        right = True
+                        left = False
         elif event.type == pygame.QUIT:
             run_value = False
-    return run_value, pause
+    return run_value, pause_value, select_value
 
 def heart_value(hearts):
     if hearts >= 1:
@@ -242,7 +257,8 @@ def heart_value(hearts):
 #                 damage = False
 #         else: 
 #             damage = True
-def player_settings():
+def player_settings(select):
+    global left, right
     screen.fill(BLACK)  # always the first drawing command
     pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
     set_text = mega_font.render("Settings", False, RED)
@@ -257,22 +273,31 @@ def player_settings():
     screen.blit(def_text, deftext_rect)
     arrow = reg_font.render(">", False, RED)
     arrow_rect = arrow.get_rect()
-    # if left:
-    arrow_rect.left = 120
-    # else:
-    # arrow.left = 490
+    if left == True:
+        arrow_rect.left = 120
+        if select:
+            print("atk selected")
+    if right == True:
+        arrow_rect.left = 390
+        if select:
+            print("def selected")
+
     screen.blit(arrow, arrow_rect)
 
 def main_base():
     global player_x, player_y, player
     global complete1, complete2, complete3, complete4
+    global left, right
     player_x, player_y, hearts = initial_set
     player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
+    left = True
+    right = False
+    select = False
     running = True
     pause = False
     while running:
         if pause:
-            player_settings()
+            player_settings(select)
         else:
             screen.fill(BLACK)  # always the first drawing command
             pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
@@ -302,21 +327,24 @@ def main_base():
 
             player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
             movement()
-        
-        running, pause = event_getter(running, pause)
+        running, pause, select = event_getter(running, pause, select)
         pygame.display.flip()
         clock.tick(30)
     pygame.quit()
 
 def dungeon1():
     global player_x, player_y, player
+    global left, right
     current_room = 0
     player_x, player_y, hearts = initial_set
+    left = True
+    right = False
+    select = False
     pause = False
     running = True
     while running:
         if pause:
-            player_settings()
+            player_settings(select)
         else:
             screen.fill(BLACK)  # always the first drawing command
             pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
@@ -324,24 +352,27 @@ def dungeon1():
             screen.blit(dun1_txt, (dun1_txt.get_rect(center = screen.get_rect().center)))
             heart_value(hearts)
 
-            movement()
-            current_room = room_generate(room_list1, current_room)
             player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
-        running, pause = event_getter(running, pause)
+            current_room = room_generate(room_list1, current_room)
+            movement()
+        running, pause, select = event_getter(running, pause, select)
         pygame.display.flip()
         clock.tick(30)
     pygame.quit()
 
-
 def dungeon2():
     global player_x, player_y, player
+    global left, right
     current_room = 0
     player_x, player_y, hearts = initial_set
+    left = True
+    right = False
+    select = False
     pause = False
     running = True
     while running:
         if pause:
-            player_settings()
+            player_settings(select)
         else:
             screen.fill(BLACK)  # always the first drawing command
             pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
@@ -350,24 +381,27 @@ def dungeon2():
             heart_value(hearts)
 
 
-            movement()
-            current_room = room_generate(room_list2, current_room)
             player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
-        running = event_getter(running, pause)
+            current_room = room_generate(room_list2, current_room)
+            movement()
+        running, pause, select = event_getter(running, pause, select)
         pygame.display.flip()
         clock.tick(30)
     pygame.quit()
     
-
 def dungeon3():
     global player_x, player_y, player
+    global left, right
     current_room = 0
     player_x, player_y, hearts = initial_set
+    left = True
+    right = False
+    select = False
     pause = False
     running = True
     while running:
         if pause:
-            player_settings()
+            player_settings(select)
         else:
             screen.fill(BLACK)  # always the first drawing command
             pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
@@ -376,24 +410,27 @@ def dungeon3():
             heart_value(hearts)
 
 
-            movement()
             player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
             current_room = room_generate(room_list3, current_room)
-        running = event_getter(running, player)
+            movement()
+        running, pause, select = event_getter(running, pause, select)
         pygame.display.flip()
         clock.tick(30)
     pygame.quit()
-
 
 def dungeon4():
     global player_x, player_y, player
+    global left, right
     current_room = 0
     player_x, player_y, hearts = initial_set
+    left = True
+    right = False
+    select = False
     pause = False
     running = True
     while running:
         if pause:
-            player
+            player_settings(select)
         else:
             screen.fill(BLACK)  # always the first drawing command
             pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
@@ -402,24 +439,27 @@ def dungeon4():
             heart_value(hearts)
 
 
-            movement()
             player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
             current_room = room_generate(room_list4, current_room)
-        running = event_getter(running, pause)
+            movement()
+        running, pause, select = event_getter(running, pause, select)
         pygame.display.flip()
         clock.tick(30)
     pygame.quit()
 
-
 def dungeon5():
     global player_x, player_y, player
+    global left, right
     current_room = 0
     player_x, player_y, hearts = initial_set
+    left = True
+    right = False
+    select = False
     pause = False
     running = True
     while running:
         if pause:
-            player_settings()
+            player_settings(select)
         else:
             screen.fill(BLACK)  # always the first drawing command
             pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
@@ -428,10 +468,10 @@ def dungeon5():
             heart_value(hearts)
 
 
-            movement()
             player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
             current_room = room_generate(room_list5, current_room)
-        running = event_getter(running, pause)
+            movement()
+        running, pause, select = event_getter(running, pause, select)
         pygame.display.flip()
         clock.tick(30)
     pygame.quit()
