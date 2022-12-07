@@ -2,7 +2,6 @@
 
 import pygame
 from pygame import mixer
-import random
 
 pygame.init()
 pygame.font.init()
@@ -15,6 +14,8 @@ clock = pygame.time.Clock()
 # mixer.music.load("8 Bit Dungeon.mp3")
 # mixer.music.set_volume(0.7)
 # mixer.music.play(-1)
+
+# Use proper path
 mega_font = pygame.font.Font("Grand9K Pixel.ttf", 75)
 reg_font = pygame.font.Font("Grand9K Pixel.ttf", 50)
 WHITE = (255, 255, 255)
@@ -197,10 +198,10 @@ def event_getter(run_value, pause_value, select_value):
             if event.key == pygame.K_ESCAPE:
                 run_value = False
             if event.key == pygame.K_SPACE or event.key == pygame.K_i:
-                print("attack")
                 if pause_value == True:
                     select_value = True
                 else:
+                    print("attack")
                     select_value = False
             if event.key == pygame.K_o:
                 if pause_value == True:
@@ -258,37 +259,27 @@ def heart_value(hearts):
 #         else: 
 #             damage = True
 def player_settings(select):
-    global left, right
+    global left, right, atk_power
     screen.fill(BLACK)  # always the first drawing command
     pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
     set_text = mega_font.render("Settings", False, RED)
-    screen.blit(set_text, (set_text.get_rect(center = screen.get_rect().center)))
-    atk_text = reg_font.render("Atk", False, RED)
-    atktext_rect = atk_text.get_rect()
-    atktext_rect.left = 150
-    screen.blit(atk_text, atktext_rect)
-    def_text = reg_font.render("Def", False, RED)
-    deftext_rect = def_text.get_rect()
-    deftext_rect.right = 520
-    screen.blit(def_text, deftext_rect)
-    arrow = reg_font.render(">", False, RED)
-    arrow_rect = arrow.get_rect()
-    if left == True:
-        arrow_rect.left = 120
-        if select:
-            print("atk selected")
-    if right == True:
-        arrow_rect.left = 390
-        if select:
-            print("def selected")
+    screen.blit(set_text, (set_text.get_rect(center = screen.get_rect().center)[0], 5))
+    atk_text = reg_font.render("> Atk:", False, RED)
+    if select:
+        atk_power += 0.1
+        print("atk selected")
+        power_settings = reg_font.render(str(atk_power), False, RED)
+        screen.blit(power_settings, (150, 150))
+        select = False
+    return select
 
-    screen.blit(arrow, arrow_rect)
 
 def main_base():
-    global player_x, player_y, player
+    global player_x, player_y, player, atk_power
     global complete1, complete2, complete3, complete4
     global left, right
     player_x, player_y, hearts = initial_set
+    atk_power = 0.1
     player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
     left = True
     right = False
@@ -297,7 +288,7 @@ def main_base():
     pause = False
     while running:
         if pause:
-            player_settings(select)
+            select = player_settings(select)
         else:
             screen.fill(BLACK)  # always the first drawing command
             pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
