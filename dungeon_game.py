@@ -18,6 +18,7 @@ clock = pygame.time.Clock()
 # Use proper path
 mega_font = pygame.font.Font("Grand9K Pixel.ttf", 75)
 reg_font = pygame.font.Font("Grand9K Pixel.ttf", 50)
+tiny_font = pygame.font.Font("Grand9K Pixel.ttf", 17)
 WHITE = (255, 255, 255)
 BLACK = (0, 0, 0)
 BLUE = (0,162,232)
@@ -37,15 +38,15 @@ complete4 = False
 # Room Sets
 # Room List 1
 room_list1 = []
-room1_0 = [None, None, None, 1]
-room1_1 = [None, 0, 2, None]
-room1_2 = [1, 3, None, None]
-room1_3 = [None, 4, None, 2]
-room1_4 = [5, None, None, 3]
-room1_5 = [6, None, 4, None]
-room1_6 = [None, None, 5, 7]
-room1_7 = [None, 6, None, 8]
-room1_8 = [None, 7, None, None]
+room1_0 = [None, None, None, 1, 1]
+room1_1 = [None, 0, 2, None, 1]
+room1_2 = [1, 3, None, None, 1]
+room1_3 = [None, 4, None, 2, 1]
+room1_4 = [5, None, None, 3, 1]
+room1_5 = [6, None, 4, None, 1]
+room1_6 = [None, None, 5, 7, 1]
+room1_7 = [None, 6, None, 8, 2]
+room1_8 = [None, 7, None, None, 3]
 room_list1.append([room1_0, room1_1, room1_2, room1_3, room1_4, room1_5, room1_6, room1_7, room1_8])
 room_list1 = room_list1[0]
 #Room List 2
@@ -128,7 +129,7 @@ room_list5 = room_list5[0]
 
 # ---------------------------
 
-def room_generate(room_list, current_room):
+def room_generate(room_list, room_start, current_room):
     global player_x, player_y, player, complete1
     if room_list[current_room][0] != None:
         next_room = room_list[current_room][0]
@@ -136,6 +137,7 @@ def room_generate(room_list, current_room):
         if player.colliderect(door1):
             player_x = 305
             player_y = 437
+            room_start = True
             current_room = next_room
     if room_list[current_room][1] != None:
         next_room = room_list[current_room][1]
@@ -143,6 +145,7 @@ def room_generate(room_list, current_room):
         if player.colliderect(door2):
             player_x = 93
             player_y = 225
+            room_start = True
             current_room = next_room
     if room_list[current_room][2] != None:
         next_room = room_list[current_room][2]
@@ -150,6 +153,7 @@ def room_generate(room_list, current_room):
         if player.colliderect(door3):
             player_x = 305
             player_y = 13
+            room_start = True
             current_room = next_room
     if room_list[current_room][3] != None:
         next_room = room_list[current_room][3]
@@ -157,13 +161,14 @@ def room_generate(room_list, current_room):
         if player.colliderect(door4):
             player_x = 517
             player_y = 225
+            room_start = True
             current_room = next_room
     if room_list[current_room] == room_list[-1]:
         dungeon_door = pygame.draw.rect(screen, RED, [305, 300, 30, 30])
         if player.colliderect(dungeon_door):
             complete1 = True
             main_base()
-    return current_room
+    return current_room, room_start
 
 def movement():
     global player_x, player_y
@@ -223,53 +228,82 @@ def event_getter(run_value, pause_value, select_value):
             run_value = False
     return run_value, pause_value, select_value
 
-def heart_value(hearts):
+def extra_displays(hearts):
+    w_inst = tiny_font.render("W: Up", False, RED)
+    s_inst = tiny_font.render("S: Down", False, RED)
+    a_inst = tiny_font.render("A: Left", False, RED)
+    d_inst = tiny_font.render("D: Right", False, RED)
+    i_inst = tiny_font.render("I: ATK", False, RED)
+    o_inst = tiny_font.render("O: Pause", False, RED)
+    screen.blit(w_inst, (5, 5))
+    screen.blit(s_inst, (5, 25))
+    screen.blit(a_inst, (5, 45))
+    screen.blit(d_inst, (5, 65))
+    screen.blit(i_inst, (5, 85))
+    screen.blit(o_inst, (5, 105))
     if hearts >= 1:
-        pygame.draw.rect(screen, RED, [5, 5, 10, 10])
+        pygame.draw.rect(screen, RED, [90, 5, 10, 10])
     if hearts >= 2:
-        pygame.draw.rect(screen, RED, [25, 5, 10, 10])
+        pygame.draw.rect(screen, RED, [105, 5, 10, 10])
     if hearts == 3:
-        pygame.draw.rect(screen, RED, [45, 5, 10, 10])
+        pygame.draw.rect(screen, RED, [120, 5, 10, 10])
     if hearts == 0:
         main_base()
+        
 
-# def enemy():
-#     if enemies == 1:
-#         enemy1 = pygame.draw.rect(screen, RED, [enemy1_x, enemy1_y, 30, 30])
-#         if enemy1_x < player_x:
-#             enemy1_x += 1
-#         elif enemy1_x > player_x:
-#             enemy1_x -= 1
-#         if enemy1_y < player_y:
-#             enemy1_y += 1
-#         elif enemy1_y > player_y:
-#             enemy1_y -= 1
-#         if enemy1.colliderect(player):
-#             if damage == True:
-#                 hearts -= 1
-#                 if enemy1_x < player_x and player_x < 507:
-#                     player_x += 20
-#                 elif enemy1_x > player_x and player_x > 103:
-#                     player_x -= 20
-#                 if enemy1_y < player_y and player_y > 23:
-#                     player_y += 20
-#                 elif enemy1_y > player_y and player_y < 427:
-#                     player_y -= 20
-#                 damage = False
-#         else: 
-#             damage = True
+def enemy(enemies, room_start, hearts):
+    global player_x, player_y, enemies_list
+    if room_start:
+        damage = True
+        enemies_list = []
+        for i in range(enemies):
+            enemyx = i * 100 + 80
+            enemyy = 30
+            enemies_list.append([enemyx, enemyy, None])
+        room_start = False
+    if len(enemies_list) > 0:
+        for enemy in enemies_list:
+            if enemy[0] < player_x:
+                enemy[0] += 1
+            elif enemy[0] > player_x:
+                enemy[0] -= 1
+            if enemy[1] < player_y:
+                enemy[1] += 1
+            elif enemy[1] > player_y:
+                enemy[1] -= 1
+            enemy[2] = pygame.draw.rect(screen, RED, [enemy[0], enemy[1], 30, 30])
+
+            if enemy[2].colliderect(player):
+                if damage == True:
+                    hearts -= 1
+                    if enemy[0] < player_x and player_x < 507:
+                        player_x += 20
+                    elif enemy[0] > player_x and player_x > 103:
+                        player_x -= 20
+                    if enemy[1] < player_y and player_y > 23:
+                        player_y += 20
+                    elif enemy[1] > player_y and player_y < 427:
+                        player_y -= 20
+                    damage = False
+                
+            else: 
+                damage = True
+    return room_start, hearts
+
+
 def player_settings(select):
     global left, right, atk_power
     screen.fill(BLACK)  # always the first drawing command
     pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
     set_text = mega_font.render("Settings", False, RED)
     screen.blit(set_text, (set_text.get_rect(center = screen.get_rect().center)[0], 5))
-    atk_text = reg_font.render("> Atk:", False, RED)
+    atk_text = reg_font.render(f"> Atk: {atk_power}", False, RED)
+    atktxt_rect = atk_text.get_rect(center = screen.get_rect().center)
+    screen.blit(atk_text, atktxt_rect)
     if select:
         atk_power += 0.1
+        atk_power = round(atk_power, 1)
         print("atk selected")
-        power_settings = reg_font.render(str(atk_power), False, RED)
-        screen.blit(power_settings, (150, 150))
         select = False
     return select
 
@@ -294,7 +328,7 @@ def main_base():
             pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
             home = mega_font.render("HOME", False, RED)
             screen.blit(home, (home.get_rect(center = screen.get_rect().center)))
-            heart_value(hearts)
+            extra_displays(hearts)
 
             door1 = pygame.draw.rect(screen, RED, [220, 3, 200, 10])
             if player.colliderect(door1):
@@ -324,7 +358,7 @@ def main_base():
     pygame.quit()
 
 def dungeon1():
-    global player_x, player_y, player
+    global player_x, player_y, player, enemies_list
     global left, right
     current_room = 0
     player_x, player_y, hearts = initial_set
@@ -332,6 +366,8 @@ def dungeon1():
     right = False
     select = False
     pause = False
+    room_start = True
+    enemies_list = []
     running = True
     while running:
         if pause:
@@ -341,10 +377,12 @@ def dungeon1():
             pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
             dun1_txt = mega_font.render("1", False, RED)
             screen.blit(dun1_txt, (dun1_txt.get_rect(center = screen.get_rect().center)))
-            heart_value(hearts)
+            extra_displays(hearts)
+            enemies = room_list1[current_room][-1]
+            room_start, hearts = enemy(enemies, room_start, hearts)
 
             player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
-            current_room = room_generate(room_list1, current_room)
+            current_room, room_start = room_generate(room_list1, room_start, current_room)
             movement()
         running, pause, select = event_getter(running, pause, select)
         pygame.display.flip()
@@ -369,7 +407,7 @@ def dungeon2():
             pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
             dun1_txt = mega_font.render("1", False, RED)
             screen.blit(dun1_txt, (dun1_txt.get_rect(center = screen.get_rect().center)))
-            heart_value(hearts)
+            extra_displays(hearts)
 
 
             player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
@@ -398,7 +436,7 @@ def dungeon3():
             pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
             dun1_txt = mega_font.render("1", False, RED)
             screen.blit(dun1_txt, (dun1_txt.get_rect(center = screen.get_rect().center)))
-            heart_value(hearts)
+            extra_displays(hearts)
 
 
             player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
@@ -427,7 +465,7 @@ def dungeon4():
             pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
             dun1_txt = mega_font.render("1", False, RED)
             screen.blit(dun1_txt, (dun1_txt.get_rect(center = screen.get_rect().center)))
-            heart_value(hearts)
+            extra_displays(hearts)
 
 
             player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
@@ -456,7 +494,7 @@ def dungeon5():
             pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
             dun1_txt = mega_font.render("1", False, RED)
             screen.blit(dun1_txt, (dun1_txt.get_rect(center = screen.get_rect().center)))
-            heart_value(hearts)
+            extra_displays(hearts)
 
 
             player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
