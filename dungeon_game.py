@@ -1,5 +1,5 @@
 # pygame template
-
+import math
 import pygame
 from pygame import mixer
 
@@ -252,7 +252,7 @@ def extra_displays(hearts):
         
 
 def enemy(enemies, room_start, hearts):
-    global player_x, player_y, enemies_list
+    global player_x, player_y, enemies_list, damage, shoot
     if room_start:
         damage = True
         enemies_list = []
@@ -272,18 +272,27 @@ def enemy(enemies, room_start, hearts):
             elif enemy[1] > player_y:
                 enemy[1] -= 1
             enemy[2] = pygame.draw.rect(screen, RED, [enemy[0], enemy[1], 30, 30])
+            mathangle = math.atan2((player_y+15) - (enemyy+15), (player_x+15) - (enemyx+15))
+            rotation = int(mathangle * 180 / math.pi)
+            dx = (math.cos(mathangle) * 2)
+            dy = (math.sin(mathangle) * 2)
+        
+        if shoot:
+            bulletx += dx * 1
+            bullety += dy * 1
+            bullet = pygame.circle.draw(screen, PURPLE, (bulletx, bullety), 2)
 
             if enemy[2].colliderect(player):
                 if damage == True:
                     hearts -= 1
-                    if enemy[0] < player_x and player_x < 507:
-                        player_x += 20
-                    elif enemy[0] > player_x and player_x > 103:
-                        player_x -= 20
-                    if enemy[1] < player_y and player_y > 23:
-                        player_y += 20
-                    elif enemy[1] > player_y and player_y < 427:
-                        player_y -= 20
+                    if enemy[0] < player_x and player_x < 477:
+                        player_x += 50
+                    elif enemy[0] > player_x and player_x > 133:
+                        player_x -= 50
+                    if enemy[1] < player_y and player_y > 53:
+                        player_y += 50
+                    elif enemy[1] > player_y and player_y < 397:
+                        player_y -= 50
                     damage = False
                 
             else: 
@@ -309,11 +318,12 @@ def player_settings(select):
 
 
 def main_base():
-    global player_x, player_y, player, atk_power
+    global player_x, player_y, player, atk_power, damage
     global complete1, complete2, complete3, complete4
     global left, right
     player_x, player_y, hearts = initial_set
     atk_power = 0.1
+    damage = True
     player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
     left = True
     right = False
@@ -358,10 +368,12 @@ def main_base():
     pygame.quit()
 
 def dungeon1():
+
     global player_x, player_y, player, enemies_list
     global left, right
     current_room = 0
     player_x, player_y, hearts = initial_set
+
     left = True
     right = False
     select = False
@@ -377,9 +389,9 @@ def dungeon1():
             pygame.draw.rect(screen, WHITE, [80, 0, 480, 480], 3)
             dun1_txt = mega_font.render("1", False, RED)
             screen.blit(dun1_txt, (dun1_txt.get_rect(center = screen.get_rect().center)))
-            extra_displays(hearts)
             enemies = room_list1[current_room][-1]
             room_start, hearts = enemy(enemies, room_start, hearts)
+            extra_displays(hearts)
 
             player = pygame.draw.rect(screen, BLUE, [player_x, player_y, 30, 30])
             current_room, room_start = room_generate(room_list1, room_start, current_room)
